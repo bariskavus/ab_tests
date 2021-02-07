@@ -3,7 +3,6 @@ from scipy.stats import shapiro
 from scipy import stats
 import matplotlib.pyplot as plt
 import pylab
-from helpers.helpers import check_df
 
 df_control = pd.read_excel("datasets/ab_testing_data.xlsx",
                            sheet_name="Control Group")
@@ -14,6 +13,21 @@ df_test = pd.read_excel("datasets/ab_testing_data.xlsx",
 
 def describe(arg1):
     print(arg1.describe().T)
+
+
+def check_df(dataframe):
+    print("##################### Shape #####################")
+    print(dataframe.shape)
+    print("##################### Types #####################")
+    print(dataframe.dtypes)
+    print("##################### Head #####################")
+    print(dataframe.head(3))
+    print("##################### Tail #####################")
+    print(dataframe.tail(3))
+    print("##################### NA #####################")
+    print(dataframe.isnull().sum())
+    print("##################### Quantiles #####################")
+    print(dataframe.quantile([0, 0.05, 0.50, 0.95, 0.99, 1]).T)
 
 
 def norm_test(arg1):
@@ -86,7 +100,6 @@ var_equal(df_test["Purchase"], df_control["Purchase"])
 
 
 t_test(df_test["Purchase"], df_control["Purchase"])
-
 
 # p_value > 0.05 H0 REDDEDİLEMEZ.
 # maximum bidding purchase ve average bidding purchase ortalamaları arasında istatistiksel olarak
